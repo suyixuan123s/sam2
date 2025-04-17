@@ -40,11 +40,12 @@ def draw_bounding_box(image_path, box_coordinates, color=(0, 255, 0), thickness=
 
 # 示例用法
 if __name__ == '__main__':
-    image_file = "/home/suyixuan/AI/Pose_Estimation/sam2/suyixuan/data/frame_000000.png"  # 替换为你的图像文件路径
+    image_file = "color_image_20250415-145851.jpg"  # 替换为你的图像文件路径
     # bounding_box = (140, 0, 550, 430)  # 替换为你的边界框坐标
     # bounding_box = (743, 595, 909, 443)  # 替换为你的边界框坐标 10ml_rack1.mp4
     # bounding_box = (900, 426, 1065, 215)  # 替换为你的边界框坐标
-    bounding_box = (890, 435, 1070, 220)  # 替换为你的边界框坐标 10ml_metal_rack.mp4
+    # bounding_box = (890, 435, 1070, 220)  # 替换为你的边界框坐标 10ml_metal_rack.mp4
+    bounding_box = (720, 552, 875, 391)  # 替换为你的边界框坐标 10ml_rack_0408.mp4
     box_color = (1, 0, 0)  # 蓝色
     line_thickness = 2
 

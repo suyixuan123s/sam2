@@ -44,7 +44,7 @@ def visualize_mask_blackwhite(frame_idx, masks):
 # 2. 保存掩码到文件
 # 将掩码保存为图像文件。
 def save_mask_to_file_blackwhite(frame_idx, masks,
-                                 output_dir="/home/suyixuan/AI/Pose_Estimation/sam2/data/out_data/10ml_metal_rack/output_masks_10ml_metalrack"):
+                                 output_dir="/home/suyixuan/AI/Pose_Estimation/sam2/data/out_data/2025-04-15_rack_10ml1"):
     """
     将掩码保存为图像文件
     :param frame_idx: 当前帧的索引
@@ -85,7 +85,7 @@ def process_mask(masks):
 with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
     # 初始化推理状态
     # state = predictor.init_state("/home/suyixuan/AI/Pose_Estimation/sam2/data/vidoe_data/10ml_metal_rack.mp4")
-    state = predictor.init_state("/home/suyixuan/AI/Pose_Estimation/sam2/data/vidoe_data/10ml_metal_rack.mp4")
+    state = predictor.init_state("/home/suyixuan/AI/Pose_Estimation/sam2/data/vidoe_data/rack10ml_0415.mp4")
 
     # state = predictor.init_state("/home/suyixuan/AI/Pose_Estimation/sam2/data/demo1.mp4")
     # 假设 state 是之前初始化的推理状态
@@ -100,6 +100,8 @@ with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
     # bounding_box = (760, 580, 913, 440)  # 替换为你的边界框坐标
     # bounding_box = (912, 431, 1044, 228)  # 替换为你的边界框坐标
     # bounding_box = (743, 595, 909, 443)
+    # 720, 552, 875, 391
+    # bounding_box = (720, 552, 875, 391)  # 替换为你的边界框坐标
 
     # bounding_box = (100, 260, 175, 345)  # 示例边界框
 
@@ -107,10 +109,22 @@ with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
     # points = [(753, 458), (810, 455), (843, 536), (891, 585), (900, 452), (791, 446), (839, 592)]  # 替换为您的点坐标
     # labels = [1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
 
+    # # 定义点的提示，格式为 (x, y) 10ml_metal_rack
+    # points = [(933, 422), (963, 291), (1043, 427), (900, 284), (1009, 232), (900, 340), (1048, 259),
+    #           (1061, 428)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
+    # # 定义点的提示，格式为 (x, y) 10ml_metal_rack
+    # points = [(765, 650), (755, 533), (891, 603), (885, 643), (824, 649), (749, 651), (750, 523),
+    #           (897, 649), (812, 654), (748, 609), (746, 553)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
     # 定义点的提示，格式为 (x, y) 10ml_metal_rack
-    points = [(933, 422), (963, 291), (1043, 427), (900, 284), (1009, 232), (900, 340), (1048, 259),
-              (1061, 428)]  # 替换为您的点坐标
-    labels = [1, 1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+    points = [(738, 503), (843, 431), (831, 520), (819, 401), (731, 494), (739, 541), (772, 550),
+              (824, 523), (726, 468), (728, 440), (849, 414)]  # 替换为您的点坐标
+    labels = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
+
 
     # 添加初始提示
     frame_idx, object_ids, masks = predictor.add_new_points_or_box(

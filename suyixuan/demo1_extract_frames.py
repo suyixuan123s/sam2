@@ -58,8 +58,8 @@ def extract_frames(video_path, output_dir, frame_interval=1):
 
 # 示例用法
 if __name__ == '__main__':
-    video_file = "/home/suyixuan/AI/Pose_Estimation/sam2/data/vidoe_data/10ml_metal_rack.mp4"  # 替换为你的视频文件路径
-    output_directory = "/home/suyixuan/AI/Pose_Estimation/sam2/data/out_data/10ml_metal_rack/output_frames_10ml_metalrack"  # 替换为你想要保存帧图像的目录
+    video_file = "/home/suyixuan/AI/Pose_Estimation/sam2/data/2025-04-08_rack_10ml/rack_0408.mp4"  # 替换为你的视频文件路径
+    output_directory = "/home/suyixuan/AI/Pose_Estimation/sam2/data/out_data/2025-04-08_rack_10ml/output_frames"  # 替换为你想要保存帧图像的目录
     frame_extraction_interval = 1  # 提取每一帧
 
     extract_frames(video_file, output_directory, frame_extraction_interval)
