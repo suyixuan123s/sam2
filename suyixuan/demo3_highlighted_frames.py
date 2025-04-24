@@ -51,8 +51,8 @@ model_cfg = "../sam2/configs/sam2.1/sam2.1_hiera_l.yaml"
 predictor = build_sam2_video_predictor(model_cfg, checkpoint)
 
 # 视频路径和输出目录
-video_path = "/home/suyixuan/AI/Pose_Estimation/sam2/data/vidoe_data/10ml_metal_rack.mp4"
-highlight_dir = "/home/suyixuan/AI/Pose_Estimation/sam2/data/out_data/10ml_metal_rack/highlighted_frames_10ml_metal_rack"
+video_path = "/home/suyixuan/AI/Pose_Estimation/sam2/data/hujiaying/423/marker/video/marker.mp4"
+highlight_dir = "/home/suyixuan/AI/Pose_Estimation/sam2/data/hujiaying/423/marker/highlighted_frames_10ml_orange_rack1"
 os.makedirs(highlight_dir, exist_ok=True)
 
 # 初始化视频捕获对象
@@ -75,26 +75,49 @@ with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
     # bounding_box = (140, 0, 550, 430)  # 格式：(x_min, y_min, x_max, y_max)
     # bounding_box = (754, 588, 890, 450)  # 替换为你的边界框坐标
 
-    # # 定义点的提示，格式为 (x, y) 10ml_rack1
-    # points = [(753, 458), (810, 455), (843, 536), (891, 585), (900, 452), (791, 446), (839, 592)]  # 替换为您的点坐标
-    # labels = [1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+    bounding_box = (380, 87, 512, 389)  # 替换为你的边界框坐标 10ml_rack_0408.mp4
 
-    # 定义点的提示，格式为 (x, y) 10ml_metal_rack
-    points = [(933, 422), (963, 291), (1043, 427), (900, 284), (1009, 232), (900, 340), (1048, 259),
-              (1061, 428)]  # 替换为您的点坐标
-    labels = [1, 1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
-
-    # 添加初始提示
+    # 调用方法，添加点和边界框
     frame_idx, object_ids, masks = predictor.add_new_points_or_box(
         state,
         frame_idx,
         obj_id,
-        points=points,  # 添加点的提示
-        labels=labels,  # 添加点的标签
         clear_old_points=True,
         normalize_coords=True,
-        # box=bounding_box
+        box=bounding_box
     )
+
+    # # 定义点的提示，格式为 (x, y) 10ml_rack1
+    # points = [(753, 458), (810, 455), (843, 536), (891, 585), (900, 452), (791, 446), (839, 592)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
+    # # 定义点的提示，格式为 (x, y) 10ml_metal_rack
+    # points = [(933, 422), (963, 291), (1043, 427), (900, 284), (1009, 232), (900, 340), (1048, 259),
+    #           (1061, 428)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 1, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
+
+    # 定义点的提示，格式为 (x, y) 10ml_metal_rack
+    # points = [(346, 336),(332, 292),(341, 310),(371, 382), (356, 360), (365, 343), (322, 280), (338, 279), (360, 390), (351, 369),
+    #           (368, 333), (331, 346), (341, 339), (369, 337),(356, 316), (347, 354)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+
+    # 定义点的提示，格式为 (x, y) 10ml_metal_rack
+    # points = [(360, 256),(375, 272),(321, 366),(332, 385), (343, 340), (354, 314), (347, 288), (339, 325), (350, 330), (368, 291),
+    #           (333, 315), (351, 263), (378, 274), (372, 255),(321, 369), (327, 303)]  # 替换为您的点坐标
+    # labels = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]  # 替换为与点对应的标签，假设这两个点属于同一类别
+    #
+    # # 添加初始提示
+    # frame_idx, object_ids, masks = predictor.add_new_points_or_box(
+    #     state,
+    #     frame_idx,
+    #     obj_id,
+    #     points=points,  # 添加点的提示
+    #     labels=labels,  # 添加点的标签
+    #     clear_old_points=True,
+    #     normalize_coords=True,
+    #     # box=bounding_box
+    # )
 
     # 进行视频传播
     for frame_idx, object_ids, masks in predictor.propagate_in_video(state, start_frame_idx=0):
